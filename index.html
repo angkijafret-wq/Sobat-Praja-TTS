@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* -- PENGATURAN DASAR -- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: #f0f4f0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+
+        /* Kustomisasi Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f9f4; }
+        ::-webkit-scrollbar-thumb { background: #004d40; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffca28; }
+
+        /* -- GAYA MENU SAMPING (SIDEBAR) -- */
+        .sidebar {
+            width: 260px;
+            background-color: #004d40; 
+            color: white;
+            height: 100%; 
+            padding: 30px 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            flex-shrink: 0;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        }
+        .sidebar-header {
+            border-bottom: 2px solid rgba(255,255,255,0.2); 
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .sidebar-header img {
+            width: 100px; 
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+        }
+        .sidebar h2 { 
+            color: #ffca28; 
+            font-size: 22px; 
+            margin: 0; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .menu { list-style-type: none; padding: 0; margin: 0; }
+        .menu li { margin: 10px 0; }
+        .menu a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease; 
+        }
+        .menu a span { margin-right: 12px; font-size: 18px; }
+        .menu a:hover { 
+            background-color: rgba(255, 255, 255, 0.1); 
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-aktif {
+            background-color: #ffca28 !important; 
+            color: #004d40 !important;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(255,202,40,0.3);
+        }
+
+        /* -- GAYA KONTEN UTAMA -- */
+        .content-area {
+            flex: 1; 
+            padding: 40px;
+            overflow-y: auto;
+            background-color: #f8faf8;
+        }
+
+        .halaman { display: none; animation: slideIn 0.4s ease-out; }
+        .halaman-aktif { display: block; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { color: #004d40; font-weight: 700; margin-top: 0; }
+
+        .kartu {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kartu:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .kartu h3 { 
+            margin-top: 0; 
+            color: #004d40; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%; padding: 12px 15px; margin: 10px 0 20px;
+            border: 2px solid #e0e0e0; border-radius: 10px; box-sizing: border-box;
+            font-family: inherit;
+        }
+        
+        button {
+            background-color: #004d40; color: white; padding: 12px 25px;
+            border: none; border-radius: 10px; cursor: pointer; font-weight: 600;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #00695c; transform: scale(1.02); }
+
+        .pdf-viewer {
+            width: 100%; height: 550px; border: none; border-radius: 12px; margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Tombol PDF bawaan disembunyikan di Laptop */
+        .btn-pdf-mobile {
+            display: none;
+            background-color: #1565c0;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            body { flex-direction: column; overflow-y: auto; }
+            .sidebar { width: 100%; height: auto; padding: 15px; }
+            .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .menu a { padding: 8px 12px; font-size: 13px; }
+            .content-area { padding: 20px; overflow-y: visible; }
+            
+            /* Sembunyikan Frame PDF yang error di HP, lalu tampilkan tombol */
+            .pdf-viewer { display: none; }
+            .btn-pdf-mobile { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="LOGOPOLPP.jpg.jpg" alt="Logo Praja">
+            <h2>Praja</h2>
+        </div>
+        <ul class="menu">
+            <li><a id="btn-beranda" class="menu-aktif" onclick="bukaHalaman('beranda', 'btn-beranda')"><span>🏠</span> Gambaran Umum</a></li>
+            <li><a id="btn-hukum" onclick="bukaHalaman('dasar-hukum', 'btn-hukum')"><span>📜</span> Dasar Hukum</a></li>
+            <li><a id="btn-buku" onclick="bukaHalaman('buku-saku', 'btn-buku')"><span>⚖️</span> Buku Saku</a></li>
+            <li><a id="btn-video" onclick="bukaHalaman('video-edukasi', 'btn-video')"><span>🎥</span> Video Edukasi</a></li>
+            <li><a id="btn-laporan" onclick="bukaHalaman('radio-laporan', 'btn-laporan')"><span>💬</span> Radio Laporan</a></li>
+        </ul>
+    </div>
+
+    <div class="content-area">
+
+        <div id="beranda" class="halaman halaman-aktif">
+            <h1>Selamat Datang, Pah Tuan! 👋</h1>
+            <div class="kartu" style="border-left: 6px solid #ffca28;">
+                <h3>Satuan Polisi Pamong Praja</h3>
+                <p><b>Satuan Polisi Pamong Praja (Satpol PP)</b> adalah perangkat daerah yang bertugas menegakkan Peraturan Daerah (Perda), Peraturan Kepala Daerah (Perkada), menyelenggarakan ketertiban umum & ketenteraman masyarakat, serta melindungi masyarakat.</p>
+                <p><b>Bidang Trantibum</b> berfungsi merumuskan, mengoordinasikan, dan melaksanakan kebijakan pengamanan serta penertiban untuk menciptakan lingkungan yang aman dan tertib di Kabupaten Timor Tengah Selatan.</p> 
+            </div>
+            <div class="kartu">
+                <h3>Apa itu Trantibum?</h3>
+                <p>Trantibum adalah singkatan dari <b>Ketentraman dan Ketertiban Umum</b>. Tugas kita sebagai pelajar adalah menjaga lingkungan sekolah dan Kota Soe agar selalu aman, damai, dan nyaman untuk semua orang.</p>
+            </div>
+        </div>
+
+        <div id="dasar-hukum" class="halaman">
+            <h1>📜 Dasar Hukum Trantibum</h1>
+            <p>Aturan dibuat untuk melindungi hak setiap warga negara. Berikut landasan hukum utamanya:</p>
+            
+            <div class="kartu" style="border-left: 6px solid #1565c0; background-color: #e3f2fd;">
+                <h3 style="color: #1565c0;">1. Perda Kab. TTS No 1 Tahun 2017</h3>
+                <p>Mengatur ketertiban pelajar melalui <b>Bab VIII Pasal 48 Ayat 2</b>:</p>
+                <blockquote style="font-style: italic; background: rgba(255,255,255,0.7); padding: 15px; border-left: 4px solid #1565c0; margin: 15px 0; border-radius: 8px;">
+                    "Setiap siswa siswi wajib berada di sekolah pada jam sekolah kecuali sedang melaksanakan tugas atau kegiatan lain yang berkaitan dengan kepentingan."
+                </blockquote>
+                
+                <iframe class="pdf-viewer" src="Perda Timor Tengah Selatan No. 1 Tahun 2017 (3).pdf"></iframe>
+                <a href="Perda Timor Tengah Selatan No. 1 Tahun 2017 (3).pdf" target="_blank" class="btn-pdf-mobile">📄 Buka / Unduh File Perda PDF</a>
+                
+                <p style="font-size: 13px; color: #d32f2f; font-weight: 600; margin-top: 15px;">(Sanksi pelanggaran diatur dalam penjelasan Perda tersebut).</p>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #2e7d32; background-color: #e8f5e9;">
+                <h3 style="color: #2e7d32;">2. Permendikbud Ristek No. 46 Tahun 2023</h3>
+                <p>Melarang segala bentuk kekerasan di satuan pendidikan, termasuk <b>Bullying</b> dan <b>Tawuran</b>.</p>
+            </div>
+        </div>
+
+        <div id="buku-saku" class="halaman">
+            <h1>⚖️ Buku Saku & Edukasi</h1>
+            
+            <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 20px;">📌 Aturan & Materi Dasar</h2>
+            
+            <div class="kartu">
+                <h3>🏫 Di Lingkungan Sekolah</h3>
+                <ul style="line-height: 1.8;">
+                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Datang tepat waktu, berseragam rapi, wajib mengikuti KBM Sampai selesai.</li>
+                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Bolos sekolah dan nongkrong menggunakan seragam di jam belajar.</li>
+                </ul>
+            </div>
+
+            <div class="kartu">
+                <h3>🏞️ Di Fasilitas Umum</h3>
+                <ul style="line-height: 1.8;">
+                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Membuang sampah pada tempatnya dan antre dengan tertib.</li>
+                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Mencoret-coret tembok (Vandalisme) dan merusak fasilitas publik.</li>
+                </ul>
+            </div>
+
+             <div class="kartu">
+                <h3>🛣️ Di Fasilitas Jalanan</h3>
+                <ul style="line-height: 1.8;">
+                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Mengendarai kendaraan menggunakan helm.</li>
+                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Menjauhi aktivitas balap liar guna menjaga keselamatan.</li>
+                </ul>
+            </div>
+
+            <div class="kartu" style="border: 2px solid #c62828;">
+                <h3 style="color: #c62828;">🚫 4 LARANGAN KERAS</h3>
+                <ul style="line-height: 1.8;">
+                    <li><b>1. Dilarang Merokok/Vape:</b> Sayangi paru-parumu sejak dini.</li>
+                    <li><b>2. Dilarang Miras:</b> Minuman keras merusak otak dan masa depan.</li>
+                    <li><b>3. Dilarang Tawuran:</b> Selesaikan masalah dengan kepala dingin, bukan kepalan tangan.</li>
+                    <li><b>4. Dilarang NAPZA:</b> Narkoba adalah musuh utama negara dan pelajar.</li>
+                </ul>
+            </div>
+
+            <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 40px;">💡 Sudut Edukasi Agen</h2>
+            
+            <div class="kartu" style="border-left: 6px solid #0288d1; background-color: #e1f5fe;">
+                <h3 style="color: #0288d1;">🛡️ Tips Menghindari Pergaulan Negatif</h3>
+                <ul style="line-height: 1.8;">
+                    <li><b>Pilih Lingkungan yang Tepat:</b> Bertemanlah dengan mereka yang saling mendukung dalam belajar dan kegiatan positif.</li>
+                    <li><b>Berani Berkata "TIDAK":</b> Jangan takut menolak ajakan teman untuk bolos, merokok, atau mencoba hal terlarang. Agen Praja sejati punya prinsip dan keberanian!</li>
+                    <li><b>Isi Waktu Luang:</b> Ikuti ekstrakurikuler, olahraga, kesenian, atau hobi yang bermanfaat agar pikiran tetap positif.</li>
+                </ul>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #fbc02d; background-color: #fffde7;">
+                <h3 style="color: #f57f17;">⏱️ Mengapa Kedisiplinan Itu Penting?</h3>
+                <p style="line-height: 1.8;">
+                    Disiplin bukan sekadar menaati aturan Satpol PP atau sekolah, tapi tentang melatih <b>tanggung jawab</b> pada diri sendiri. Pelajar yang terbiasa menghargai waktu dan patuh pada tata tertib akan memiliki mental yang kuat.
+                </p>
+            </div>
+            
+            <div class="kartu" style="border-left: 6px solid #8e24aa; background-color: #f3e5f5;">
+                <h3 style="color: #8e24aa;">🤝 Peran Pelajar dalam Trantibum</h3>
+                <p style="line-height: 1.8;">
+                    Menjaga Ketentraman dan Ketertiban Umum (Trantibum) di Kota Soe bukan hanya tugas aparat. Kamu berkontribusi besar dengan cara sederhana: <b>tidak membuat keributan, menghormati hak orang lain, dan melaporkan pelanggaran.</b>
+                </p>
+            </div>
+        </div>
+
+        <div id="video-edukasi" class="halaman">
+            <h1>🎥 Video Edukasi</h1>
+            <p>Agen, tonton rekaman misi di bawah ini untuk memahami dampak dari setiap tindakanmu bagi masa depan dan Kota Soe.</p>
+            
+            <div class="kartu" style="border-left: 6px solid #c62828;">
+                <h3 style="color: #c62828;">🚨 Misi 1: Bahaya Miras & Narkoba</h3>
+                <p>Miras dan Narkoba adalah jalan pintas menuju kehancuran. Pahami risikonya sebelum terlambat.</p>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                        src="https://www.youtube.com/embed/FbGLQuK4zTw" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #757575;">
+                <h3 style="color: #424242;">🚭 Misi 2: Bahaya Merokok</h3>
+                <p>Jangan bakar masa depanmu. Ketahui apa yang terjadi pada tubuhmu saat kamu mulai merokok.</p>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                        src="https://www.youtube.com/embed/rfuFLQfCNlE" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #ff9800;">
+                <h3 style="color: #e65100;">⚔️ Misi 3: Bahaya Tawuran Pelajar</h3>
+                <p>Tawuran hanya menyisakan luka dan penyesalan. Jadilah agen yang cerdas dengan menghindari kekerasan.</p>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                        src="https://www.youtube.com/embed/Hb4WVpdlcWs" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #d32f2f;">
+                <h3 style="color: #d32f2f;">🏃‍♂️ Misi 4: Dampak Buruk Bolos Sekolah</h3>
+                <p>Sesuai Perda TTS, setiap siswa wajib di sekolah saat jam belajar. Ini alasan mengapa bolos sangat merugikanmu.</p>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                        src="https://www.youtube.com/embed/ozlhkUrWQyA" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="kartu" style="border-left: 6px solid #2e7d32; background-color: #e8f5e9;">
+                <h3 style="color: #2e7d32;">📖 Misi 5: Dampak Positif Belajar</h3>
+                <p>Agen sejati adalah agen yang berilmu. Lihat bagaimana belajar membuka pintu kesuksesanmu di masa depan.</p>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                        src="https://www.youtube.com/embed/gNCVxf-ToF8" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="radio-laporan" class="halaman">
+            <h1>💬 Radio Laporan (Feedback)</h1>
+            <p>Punya ide atau melihat pelanggaran? Sampaikan pesanmu ke markas!</p>
+            
+            <div class="kartu">
+                <form onsubmit="alert('Laporan berhasil dikirim! Terima kasih atas kontribusimu.'); return false;">
+                    <label>Nama Agen (Boleh Samaran):</label>
+                    <input type="text" placeholder="Contoh: Agen Soe">
+
+                    <label>Jenis Laporan:</label>
+                    <select>
+                        <option>Ide/Saran Aplikasi</option>
+                        <option>Lapor Bullying/Tawuran</option>
+                        <option>Lapor Fasilitas Rusak</option>
+                        <option>Lainnya</option>
+                    </select>
+
+                    <label>Isi Pesan:</label>
+                    <textarea rows="5" placeholder="Tuliskan laporanmu secara detail..."></textarea>
+
+                    <button type="submit">Kirim Laporan 🚀</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function bukaHalaman(idHalaman, idTombol) {
+            let halaman = document.getElementsByClassName("halaman");
+            for (let i = 0; i < halaman.length; i++) {
+                halaman[i].classList.remove("halaman-aktif");
+            }
+            document.getElementById(idHalaman).classList.add("halaman-aktif");
+
+            let tombol = document.querySelectorAll(".menu a");
+            for (let i = 0; i < tombol.length; i++) {
+                tombol[i].classList.remove("menu-aktif");
+            }
+            document.getElementById(idTombol).classList.add("menu-aktif");
+            
+            if (window.innerWidth <= 768) {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+        }
+    </script>
+
+</body>
+</html>
