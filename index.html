@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praja</title>
+    <title>Praja - Sobat Praja TTS</title>
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons (Untuk Ikon Profesional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         /* -- PENGATURAN DASAR -- */
         body {
@@ -34,6 +40,8 @@
             overflow-y: auto;
             flex-shrink: 0;
             box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
         .sidebar-header {
             border-bottom: 2px solid rgba(255,255,255,0.2); 
@@ -41,12 +49,31 @@
             margin-bottom: 25px;
             text-align: center;
         }
-        .sidebar-header img {
-            width: 100px; 
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+
+        .logo-kecil-wrapper {
+            display: flex;
+            gap: 10px; 
+            justify-content: flex-start; 
+            margin-bottom: 10px; 
+            width: 100%;
         }
+        .sidebar-header .logo-kecil {
+            width: 30px; 
+            height: auto;
+            margin-bottom: 0;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
+
+        .sidebar-header .logo-utama {
+            width: 110px; 
+            height: 110px; 
+            object-fit: cover; 
+            border-radius: 50%; 
+            border: 3px solid #ffca28; 
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+        }
+
         .sidebar h2 { 
             color: #ffca28; 
             font-size: 22px; 
@@ -55,7 +82,7 @@
             text-transform: uppercase;
         }
         
-        .menu { list-style-type: none; padding: 0; margin: 0; }
+        .menu { list-style-type: none; padding: 0; margin: 0; flex: 1; }
         .menu li { margin: 10px 0; }
         .menu a {
             color: rgba(255,255,255,0.8);
@@ -68,7 +95,15 @@
             cursor: pointer;
             transition: all 0.3s ease; 
         }
-        .menu a span { margin-right: 12px; font-size: 18px; }
+        
+        /* GAYA IKON FONTAWESOME DI MENU */
+        .menu a i { 
+            margin-right: 15px; 
+            font-size: 18px; 
+            width: 20px; 
+            text-align: center;
+        }
+
         .menu a:hover { 
             background-color: rgba(255, 255, 255, 0.1); 
             color: white;
@@ -98,7 +133,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h1 { color: #004d40; font-weight: 700; margin-top: 0; }
+        h1 { color: #004d40; font-weight: 700; margin-top: 0; display: flex; align-items: center; gap: 12px; }
+        h1 i { color: #ffca28; }
 
         .kartu {
             background: white;
@@ -110,8 +146,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .kartu:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
         }
         .kartu h3 { 
             margin-top: 0; 
@@ -120,6 +156,82 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        /* -- GAYA ACCORDION LIST -- */
+        .accordion-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            background-color: #fafafa;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .accordion-item:last-child {
+            margin-bottom: 0;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+        .accordion-header:hover {
+            background-color: #f4f9f4;
+        }
+        .accordion-header h3 {
+            margin: 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .accordion-icon {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            color: #004d40;
+            font-weight: bold;
+        }
+        .accordion-content {
+            max-height: 0; 
+            overflow: hidden;
+            padding: 0 20px;
+            background-color: #fff;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+        }
+        
+        .accordion-item.aktif {
+            border-color: #004d40; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .accordion-item.aktif .accordion-content {
+            max-height: 2000px; 
+            padding: 0 20px 20px 20px;
+            border-top: 1px dashed #eee;
+        }
+        .accordion-item.aktif .accordion-icon {
+            transform: rotate(180deg);
+            color: #ffca28;
+        }
+
+        /* GAYA TABEL EDUMATERI */
+        .tabel-praja {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .tabel-praja th, .tabel-praja td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .tabel-praja th {
+            background-color: #004d40;
+            color: white;
         }
 
         input[type="text"], select, textarea {
@@ -132,6 +244,7 @@
             background-color: #004d40; color: white; padding: 12px 25px;
             border: none; border-radius: 10px; cursor: pointer; font-weight: 600;
             transition: 0.3s;
+            display: inline-flex; align-items: center; gap: 8px;
         }
         button:hover { background-color: #00695c; transform: scale(1.02); }
 
@@ -140,7 +253,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* Tombol PDF bawaan disembunyikan di Laptop */
         .btn-pdf-mobile {
             display: none;
             background-color: #1565c0;
@@ -155,12 +267,11 @@
 
         @media screen and (max-width: 768px) {
             body { flex-direction: column; overflow-y: auto; }
-            .sidebar { width: 100%; height: auto; padding: 15px; }
-            .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .sidebar { width: 100%; height: auto; padding: 15px; display: block; }
+            .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 15px; }
             .menu a { padding: 8px 12px; font-size: 13px; }
+            .menu a i { margin-right: 6px; }
             .content-area { padding: 20px; overflow-y: visible; }
-            
-            /* Sembunyikan Frame PDF yang error di HP, lalu tampilkan tombol */
             .pdf-viewer { display: none; }
             .btn-pdf-mobile { display: block; }
         }
@@ -170,193 +281,245 @@
 
     <div class="sidebar">
         <div class="sidebar-header">
-            <img src="LOGOPOLPP.jpg.jpg" alt="Logo Praja">
+            <div class="logo-kecil-wrapper">
+                <img src="ntt.png" alt="Lambang NTT" class="logo-kecil">
+                <img src="Pamong Pet (2).png" alt="Pamong Pet" class="logo-kecil">
+            </div>
+            <img src="LOGOPOLPP.jpg.jpg" alt="Logo Praja" class="logo-utama">
             <h2>Praja</h2>
         </div>
+        
+        <!-- MENU UTAMA -->
         <ul class="menu">
-            <li><a id="btn-beranda" class="menu-aktif" onclick="bukaHalaman('beranda', 'btn-beranda')"><span>🏠</span> Gambaran Umum</a></li>
-            <li><a id="btn-hukum" onclick="bukaHalaman('dasar-hukum', 'btn-hukum')"><span>📜</span> Dasar Hukum</a></li>
-            <li><a id="btn-buku" onclick="bukaHalaman('buku-saku', 'btn-buku')"><span>⚖️</span> Buku Saku</a></li>
-            <li><a id="btn-video" onclick="bukaHalaman('video-edukasi', 'btn-video')"><span>🎥</span> Video Edukasi</a></li>
-            <li><a id="btn-laporan" onclick="bukaHalaman('radio-laporan', 'btn-laporan')"><span>💬</span> Radio Laporan</a></li>
+            <li><a id="btn-beranda" class="menu-aktif" onclick="bukaHalaman('beranda', 'btn-beranda')"><i class="fa-solid fa-house"></i> Gambaran Umum</a></li>
+            <li><a id="btn-hukum" onclick="bukaHalaman('dasar-hukum', 'btn-hukum')"><i class="fa-solid fa-scale-balanced"></i> Dasar Hukum</a></li>
+            <li><a id="btn-buku" onclick="bukaHalaman('buku-saku', 'btn-buku')"><i class="fa-solid fa-book-open-reader"></i> Edukasi</a></li>
+            <li><a id="btn-video" onclick="bukaHalaman('video-edukasi', 'btn-video')"><i class="fa-solid fa-circle-play"></i> Video Edukasi</a></li>
+            <li><a id="btn-about" onclick="bukaHalaman('about-us', 'btn-about')"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
         </ul>
     </div>
 
     <div class="content-area">
 
+        <!-- HALAMAN BERANDA -->
         <div id="beranda" class="halaman halaman-aktif">
-            <h1>Selamat Datang, Pah Tuan! 👋</h1>
+            <h1><i class="fa-regular fa-hand-spock"></i> Selamat Datang!</h1>
+            
             <div class="kartu" style="border-left: 6px solid #ffca28;">
-                <h3>Satuan Polisi Pamong Praja</h3>
-                <p><b>Satuan Polisi Pamong Praja (Satpol PP)</b> adalah perangkat daerah yang bertugas menegakkan Peraturan Daerah (Perda), Peraturan Kepala Daerah (Perkada), menyelenggarakan ketertiban umum & ketenteraman masyarakat, serta melindungi masyarakat.</p>
-                <p><b>Bidang Trantibum</b> berfungsi merumuskan, mengoordinasikan, dan melaksanakan kebijakan pengamanan serta penertiban untuk menciptakan lingkungan yang aman dan tertib di Kabupaten Timor Tengah Selatan.</p> 
+                <h3><i class="fa-solid fa-building-shield"></i> Satuan Polisi Pamong Praja</h3>
+                <p>Satuan Polisi Pamong Praja (Satpol PP) adalah perangkat pemerintah daerah (provinsi/kabupaten/kota) yang bertugas menegakkan Peraturan Daerah (Perda) dan Peraturan Kepala Daerah (Perkada), menyelenggarakan ketertiban umum, serta memberikan perlindungan kepada masyarakat.</p>
+                <p>Dalam hal ini, secara umum, fungsi dari Satpol PP adalah untuk melaksanakan peraturan daerah (Perda) dan peraturan kepala daerah (Perkada), melaksanakan ketertiban umum, ketenteraman masyarakat, dan mendapatkan perlindungan bagi warganya. Hal ini berarti bahwa Satpol PP tidak sekedar menjadi penegak hukum daerah saja namun juga memiliki fungsi lain dalam menciptakan suatu lingkungan masyarakat yang selalu kondusif, tertib, dan aman.</p>
+                <p>Pada dasarnya, untuk melaksanakan fungsi tersebut, beberapa fungsi lain dari Satpol PP antara lain yaitu penyusunan program terkait dengan penegakan Perda dan Perkada serta ketertiban umum, ketenteraman, dan perlindungan masyarakat; melaksanakan kebijakan penegakan peraturan dan melakukan kordinasi dengan instansi terkait; pengawasan terhadap masyarakat, aparatur, dan badan hukum untuk melaksanakan peraturan; serta fungsi lain yang dapat diberikan oleh kepala daerah.</p> 
             </div>
+            
             <div class="kartu">
-                <h3>Apa itu Trantibum?</h3>
+                <h3><i class="fa-solid fa-users-viewfinder"></i> Apa itu Trantibum?</h3>
                 <p>Trantibum adalah singkatan dari <b>Ketentraman dan Ketertiban Umum</b>. Tugas kita sebagai pelajar adalah menjaga lingkungan sekolah dan Kota Soe agar selalu aman, damai, dan nyaman untuk semua orang.</p>
             </div>
         </div>
 
+        <!-- HALAMAN DASAR HUKUM -->
         <div id="dasar-hukum" class="halaman">
-            <h1>📜 Dasar Hukum Trantibum</h1>
+            <h1><i class="fa-solid fa-file-contract"></i> Dasar Hukum Trantibum</h1>
             <p>Aturan dibuat untuk melindungi hak setiap warga negara. Berikut landasan hukum utamanya:</p>
-            
             <div class="kartu" style="border-left: 6px solid #1565c0; background-color: #e3f2fd;">
-                <h3 style="color: #1565c0;">1. Perda Kab. TTS No 1 Tahun 2017</h3>
-                <p>Mengatur ketertiban pelajar melalui <b>Bab VIII Pasal 48 Ayat 2</b>:</p>
+                <h3 style="color: #1565c0;"><i class="fa-solid fa-gavel"></i> Perda Kab. TTS No 1 Tahun 2017</h3>
+                <p>Mengatur tentang ketertiban pelajar melalui <b>Bab VIII Pasal 48 Ayat 2</b>:</p>
                 <blockquote style="font-style: italic; background: rgba(255,255,255,0.7); padding: 15px; border-left: 4px solid #1565c0; margin: 15px 0; border-radius: 8px;">
                     "Setiap siswa siswi wajib berada di sekolah pada jam sekolah kecuali sedang melaksanakan tugas atau kegiatan lain yang berkaitan dengan kepentingan."
                 </blockquote>
-                
                 <iframe class="pdf-viewer" src="Perda Timor Tengah Selatan No. 1 Tahun 2017 (3).pdf"></iframe>
-                <a href="Perda Timor Tengah Selatan No. 1 Tahun 2017 (3).pdf" target="_blank" class="btn-pdf-mobile">📄 Buka / Unduh File Perda PDF</a>
-                
-                <p style="font-size: 13px; color: #d32f2f; font-weight: 600; margin-top: 15px;">(Sanksi pelanggaran diatur dalam penjelasan Perda tersebut).</p>
-            </div>
-
-            <div class="kartu" style="border-left: 6px solid #2e7d32; background-color: #e8f5e9;">
-                <h3 style="color: #2e7d32;">2. Permendikbud Ristek No. 46 Tahun 2023</h3>
-                <p>Melarang segala bentuk kekerasan di satuan pendidikan, termasuk <b>Bullying</b> dan <b>Tawuran</b>.</p>
+                <a href="Perda Timor Tengah Selatan No. 1 Tahun 2017 (3).pdf" target="_blank" class="btn-pdf-mobile"><i class="fa-solid fa-file-pdf"></i> Buka / Unduh File Perda PDF</a>
             </div>
         </div>
 
+        <!-- HALAMAN EDUKASI -->
         <div id="buku-saku" class="halaman">
-            <h1>⚖️ Buku Saku & Edukasi</h1>
+            <h1><i class="fa-solid fa-book-open"></i> Edukasi</h1>
             
-            <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 20px;">📌 Aturan & Materi Dasar</h2>
-            
-            <div class="kartu">
-                <h3>🏫 Di Lingkungan Sekolah</h3>
-                <ul style="line-height: 1.8;">
-                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Datang tepat waktu, berseragam rapi, wajib mengikuti KBM Sampai selesai.</li>
-                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Bolos sekolah dan nongkrong menggunakan seragam di jam belajar.</li>
-                </ul>
-            </div>
+            <div class="kartu" style="border-top: 5px solid #004d40;">
+                <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px;"><i class="fa-solid fa-thumbtack"></i> Aturan & Materi Dasar</h2>
+                
+                <!-- MENU 1: SOP PENERTIBAN -->
+                <div class="accordion-item" style="border-left: 5px solid #1565c0;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 style="color: #1565c0;"><i class="fa-solid fa-clipboard-check"></i> SOP Penertiban</h3>
+                        <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <ul style="line-height: 1.6; margin-top: 15px; padding-left: 0; list-style-type: none;">
+                            <li style="margin-bottom: 15px;">
+                                <b style="color: #1565c0; font-size: 16px;">1. Tahap Preventif</b><br>
+                                Pada tahap ini, Satpol PP tidak datang untuk menangkap, melainkan untuk berbagi ilmu dan peduli terhadap keselamatan kalian.<br>
+                                <span style="color: #555;"><b>Tujuan:</b> Memberikan pemahaman bahwa berada di luar sekolah saat jam pelajaran sangat berisiko terhadap bahaya jalanan atau provokasi negatif.</span>
+                            </li>
+                            <li style="margin-bottom: 15px;">
+                                <b style="color: #1565c0; font-size: 16px;">2. Tahap Persuasif</b><br>
+                                Jika petugas menemukan pelajar yang mulai melanggar aturan—misalnya nongkrong di kafe saat jam sekolah—tahap ini akan mengedepankan dialog.<br>
+                                <span style="color: #555;"><b>Aksi Nyata:</b> Petugas memberikan teguran lisan secara humanis dan mengingatkan pelajar untuk segera kembali ke sekolah atau rumah.</span><br>
+                                <span style="color: #555;"><b>Tujuan:</b> Mengingatkan pelajar bahwa waktu mereka sangat berharga dan menghindari penumpukan massa yang bisa memicu tawuran.</span>
+                            </li>
+                            <li style="margin-bottom: 10px;">
+                                <b style="color: #1565c0; font-size: 16px;">3. Tahap Represif</b><br>
+                                Tahap ini diambil jika himbauan dan teguran sebelumnya diabaikan, atau jika terjadi pelanggaran berat seperti tawuran yang membahayakan nyawa.<br>
+                                <span style="color: #555;"><b>Aksi Nyata:</b> Pelajar yang terjaring razia akan didata dan dibawa ke kantor Satpol PP untuk diberikan pembinaan lebih lanjut, serta melibatkan pihak sekolah dan orang tua.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-            <div class="kartu">
-                <h3>🏞️ Di Fasilitas Umum</h3>
-                <ul style="line-height: 1.8;">
-                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Membuang sampah pada tempatnya dan antre dengan tertib.</li>
-                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Mencoret-coret tembok (Vandalisme) dan merusak fasilitas publik.</li>
-                </ul>
-            </div>
+                <!-- MENU 2: SIAPA SATPOL PP -->
+                <div class="accordion-item" style="border-left: 5px solid #8e24aa;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 style="color: #8e24aa;"><i class="fa-regular fa-handshake"></i> Tak Kenal Maka Tak Sayang: Siapa Sebenarnya Satpol PP?</h3>
+                        <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p style="line-height: 1.6; margin-top: 15px;">Banyak yang mengira Satpol PP kerjaannya cuma marah-marah dan razia. Padahal, Sesuai dengan mandat dalam Perda No. 1 Tahun 2017, SATPOL PP  bertugas mengawasi ketertiban demi kenyamanan bersama. Kami mengajak  teman-teman untuk mematuhi aturan jam sekolah ini, bukan karena kami ingin membatasi kebebasan, tetapi karena aturan ini hadir untuk melindungi teman teman dari bahaya yang akan terjadi. Yuk, cek tabel <b>Mitos vs Fakta</b> di bawah ini!</p>
+                        <table class="tabel-praja">
+                            <thead>
+                                <tr>
+                                    <th>Mitos di Kalangan Pelajar</th>
+                                    <th>Fakta Sebenarnya</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Satpol PP suka asal tangkap pelajar yang sedang jajan.</td>
+                                    <td>Satpol PP hanya menegur pelajar yang asyik nongkrong di luar sekolah saat jam pelajaran berlangsung demi keamanan kalian sendiri.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tugas Satpol PP cuma ngasih hukuman fisik.</td>
+                                    <td>Pendekatan kami adalah edukasi dan perlindungan agar pelajar terhindar dari aktivitas kenakalan remaja, kecelakaan, dan bahaya jalanan.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-             <div class="kartu">
-                <h3>🛣️ Di Fasilitas Jalanan</h3>
-                <ul style="line-height: 1.8;">
-                    <li><span style="color: #2e7d32; font-weight: bold;">WAJIB:</span> Mengendarai kendaraan menggunakan helm.</li>
-                    <li><span style="color: #c62828; font-weight: bold;">DILARANG:</span> Menjauhi aktivitas balap liar guna menjaga keselamatan.</li>
-                </ul>
-            </div>
+                <!-- MENU 3: ZONA RAWAN -->
+                <div class="accordion-item" style="border-left: 5px solid #c62828;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 style="color: #c62828;"><i class="fa-solid fa-triangle-exclamation"></i> Zona Rawan: 3 Perangkap Masa Remaja</h3>
+                        <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p style="line-height: 1.6; margin-top: 15px;">Masa muda memang penuh kebebasan, tapi kebebasan tanpa tanggung jawab bisa jadi bumerang. Berikut adalah hal-hal yang sering ditemukan oleh tim patroli Satpol PP:</p>
+                        <ul style="line-height: 1.8;">
+                            <li><b>Godaan "Jam Kosong" di Kios:</b> Terlalu sering bolos saat jam pelajaran berpotensi membuat kamu tertinggal materi dan rentan ikut-ikutan tren negatif seperti merokok atau tindakan menyimpang lainnya.</li>
+                            <li><b>Ilusi "Solidaritas" Tawuran:</b> Tawuran bukan tanda keberanian. Sekali kamu terlibat dan masuk catatan kepolisian, masa depanmu untuk mencari kerja (SKCK jelek) atau masuk kampus impian bisa terancam secara permanen.</li>
+                            <li><b>Vandalisme Berseragam:</b> Memakai seragam sekolah adalah kebanggaan. Melakukan tindakan tak terpuji saat berseragam sama dengan mencoreng nama baik dirimu, orang tua, dan nama baik sekolahmu.</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <div class="kartu" style="border: 2px solid #c62828;">
-                <h3 style="color: #c62828;">🚫 4 LARANGAN KERAS</h3>
-                <ul style="line-height: 1.8;">
-                    <li><b>1. Dilarang Merokok/Vape:</b> Sayangi paru-parumu sejak dini.</li>
-                    <li><b>2. Dilarang Miras:</b> Minuman keras merusak otak dan masa depan.</li>
-                    <li><b>3. Dilarang Tawuran:</b> Selesaikan masalah dengan kepala dingin, bukan kepalan tangan.</li>
-                    <li><b>4. Dilarang NAPZA:</b> Narkoba adalah musuh utama negara dan pelajar.</li>
-                </ul>
-            </div>
+                <!-- MENU 4: DAMPAK BOLOS -->
+                <div class="accordion-item" style="border-left: 5px solid #e65100;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 style="color: #e65100;"><i class="fa-solid fa-circle-exclamation"></i> Dampak & Bahaya Bolos Sekolah</h3>
+                        <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <ul style="line-height: 1.8; margin-top: 15px; padding-left: 20px;">
+                            <li>Bolos dapat berubah menjadi rutinitas negatif yang akhirnya dianggap sebagai hal lumrah setiap harinya.</li>
+                            <li>Semangat belajar akan perlahan terkikis, berujung pada anjloknya nilai dan prestasi di sekolah.</li>
+                            <li>Nilai tanggung jawab dan kedisiplinan yang seharusnya ada di dalam diri akan semakin memudar.</li>
+                            <li>Menjadi gerbang awal menuju aktivitas negatif seperti merokok, mengonsumsi miras, hingga tawuran.</li>
+                            <li>Aktivitas di luar sekolah pada jam belajar sering kali mengganggu ketertiban dan kenyamanan warga sekitar.</li>
+                            <li>Keluyuran di jam belajar sama dengan mengundang bahaya; jangan biarkan keteledoranmu berujung pada kecelakaan yang merugikan diri sendiri.</li>
+                        </ul>
+                    </div>
+                </div>
 
-            <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 40px;">💡 Sudut Edukasi Agen</h2>
-            
-            <div class="kartu" style="border-left: 6px solid #0288d1; background-color: #e1f5fe;">
-                <h3 style="color: #0288d1;">🛡️ Tips Menghindari Pergaulan Negatif</h3>
-                <ul style="line-height: 1.8;">
-                    <li><b>Pilih Lingkungan yang Tepat:</b> Bertemanlah dengan mereka yang saling mendukung dalam belajar dan kegiatan positif.</li>
-                    <li><b>Berani Berkata "TIDAK":</b> Jangan takut menolak ajakan teman untuk bolos, merokok, atau mencoba hal terlarang. Agen Praja sejati punya prinsip dan keberanian!</li>
-                    <li><b>Isi Waktu Luang:</b> Ikuti ekstrakurikuler, olahraga, kesenian, atau hobi yang bermanfaat agar pikiran tetap positif.</li>
-                </ul>
-            </div>
+                <!-- MENU 5: PELAJAR HITS -->
+                <div class="accordion-item" style="border-left: 5px solid #2e7d32;">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <h3 style="color: #2e7d32;"><i class="fa-solid fa-star"></i> ayo jadi pelajar yang disiplin</h3>
+                        <i class="fa-solid fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p style="line-height: 1.6; margin-top: 15px;">Mau tetap disiplin tanpa harus berurusan dengan patroli ketertiban? Simak tips berikut:</p>
+                        <ol style="line-height: 1.8;">
+                            <li><b>Nongkrong Tahu Waktu:</b>  nongkrong dan bersosialisasi dengan sesama teman adalah hal yang setiap hari pasti dilakukan, tapi pastikan dilakukan setelah jam pulang sekolah dan tidak sampai larut malam.</li>
+                            <li><b>Salurkan Energi ke Hal Positif:</b> Daripada keluyuran tidak jelas, manfaatkan energi mudamu untuk ikut ekstrakurikuler, komunitas olahraga, atau membuat konten kreatif yang bermanfaat di media sosial.</li>
+                            <li><b>Berani Bilang "TIDAK":</b> Kalau diajak teman bolos atau berkeliaran saat jam sekolah, jadilah yang berani menolak. Pelajar yang keren adalah mereka yang punya pendirian dan prinsip yang kuat!</li>
+                        </ol>
+                    </div>
+                </div>
 
-            <div class="kartu" style="border-left: 6px solid #fbc02d; background-color: #fffde7;">
-                <h3 style="color: #f57f17;">⏱️ Mengapa Kedisiplinan Itu Penting?</h3>
-                <p style="line-height: 1.8;">
-                    Disiplin bukan sekadar menaati aturan Satpol PP atau sekolah, tapi tentang melatih <b>tanggung jawab</b> pada diri sendiri. Pelajar yang terbiasa menghargai waktu dan patuh pada tata tertib akan memiliki mental yang kuat.
-                </p>
-            </div>
-            
-            <div class="kartu" style="border-left: 6px solid #8e24aa; background-color: #f3e5f5;">
-                <h3 style="color: #8e24aa;">🤝 Peran Pelajar dalam Trantibum</h3>
-                <p style="line-height: 1.8;">
-                    Menjaga Ketentraman dan Ketertiban Umum (Trantibum) di Kota Soe bukan hanya tugas aparat. Kamu berkontribusi besar dengan cara sederhana: <b>tidak membuat keributan, menghormati hak orang lain, dan melaporkan pelanggaran.</b>
-                </p>
             </div>
         </div>
 
+        <!-- HALAMAN VIDEO EDUKASI -->
         <div id="video-edukasi" class="halaman">
-            <h1>🎥 Video Edukasi</h1>
+            <h1><i class="fa-solid fa-photo-film"></i> Video Edukasi</h1>
             <p>Agen, tonton rekaman misi di bawah ini untuk memahami dampak dari setiap tindakanmu bagi masa depan dan Kota Soe.</p>
             
             <div class="kartu" style="border-left: 6px solid #c62828;">
-                <h3 style="color: #c62828;">🚨 Misi 1: Bahaya Miras & Narkoba</h3>
-                <p>Miras dan Narkoba adalah jalan pintas menuju kehancuran. Pahami risikonya sebelum terlambat.</p>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                        src="https://www.youtube.com/embed/FbGLQuK4zTw" allowfullscreen></iframe>
+                <h3 style="color: #c62828;"><i class="fa-solid fa-wine-bottle"></i> Misi 1: Bahaya Miras & Narkoba</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/FbGLQuK4zTw" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="kartu" style="border-left: 6px solid #757575;">
-                <h3 style="color: #424242;">🚭 Misi 2: Bahaya Merokok</h3>
-                <p>Jangan bakar masa depanmu. Ketahui apa yang terjadi pada tubuhmu saat kamu mulai merokok.</p>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                        src="https://www.youtube.com/embed/rfuFLQfCNlE" allowfullscreen></iframe>
+                <h3 style="color: #424242;"><i class="fa-solid fa-ban-smoking"></i> Misi 2: Bahaya Merokok</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/rfuFLQfCNlE" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="kartu" style="border-left: 6px solid #ff9800;">
-                <h3 style="color: #e65100;">⚔️ Misi 3: Bahaya Tawuran Pelajar</h3>
-                <p>Tawuran hanya menyisakan luka dan penyesalan. Jadilah agen yang cerdas dengan menghindari kekerasan.</p>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                        src="https://www.youtube.com/embed/Hb4WVpdlcWs" allowfullscreen></iframe>
+                <h3 style="color: #e65100;"><i class="fa-solid fa-burst"></i> Misi 3: Bahaya Tawuran Pelajar</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/Hb4WVpdlcWs" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="kartu" style="border-left: 6px solid #d32f2f;">
-                <h3 style="color: #d32f2f;">🏃‍♂️ Misi 4: Dampak Buruk Bolos Sekolah</h3>
-                <p>Sesuai Perda TTS, setiap siswa wajib di sekolah saat jam belajar. Ini alasan mengapa bolos sangat merugikanmu.</p>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                        src="https://www.youtube.com/embed/ozlhkUrWQyA" allowfullscreen></iframe>
+                <h3 style="color: #d32f2f;"><i class="fa-solid fa-person-running"></i> Misi 4: Dampak Buruk Bolos Sekolah</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/ozlhkUrWQyA" allowfullscreen></iframe>
                 </div>
             </div>
 
             <div class="kartu" style="border-left: 6px solid #2e7d32; background-color: #e8f5e9;">
-                <h3 style="color: #2e7d32;">📖 Misi 5: Dampak Positif Belajar</h3>
-                <p>Agen sejati adalah agen yang berilmu. Lihat bagaimana belajar membuka pintu kesuksesanmu di masa depan.</p>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000;">
-                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                        src="https://www.youtube.com/embed/gNCVxf-ToF8" allowfullscreen></iframe>
+                <h3 style="color: #2e7d32;"><i class="fa-solid fa-user-graduate"></i> Misi 5: Dampak Positif Belajar</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/gNCVxf-ToF8" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
-        <div id="radio-laporan" class="halaman">
-            <h1>💬 Radio Laporan (Feedback)</h1>
-            <p>Punya ide atau melihat pelanggaran? Sampaikan pesanmu ke markas!</p>
-            
-            <div class="kartu">
-                <form onsubmit="alert('Laporan berhasil dikirim! Terima kasih atas kontribusimu.'); return false;">
-                    <label>Nama Agen (Boleh Samaran):</label>
-                    <input type="text" placeholder="Contoh: Agen Soe">
+        <!-- HALAMAN ABOUT US -->
+        <div id="about-us" class="halaman">
+            <h1><i class="fa-solid fa-circle-info"></i> About Us</h1>
+            <p>Informasi kontak, lokasi, dan media sosial resmi Satuan Polisi Pamong Praja Kabupaten Timor Tengah Selatan.</p>
 
-                    <label>Jenis Laporan:</label>
-                    <select>
-                        <option>Ide/Saran Aplikasi</option>
-                        <option>Lapor Bullying/Tawuran</option>
-                        <option>Lapor Fasilitas Rusak</option>
-                        <option>Lainnya</option>
-                    </select>
+            <div class="kartu" style="border-left: 6px solid #004d40;">
+                <h3 style="color: #004d40;"><i class="fa-solid fa-map-location-dot"></i> Lokasi & Kontak Utama</h3>
+                <p><b>Alamat:</b> Jl. Basuki Rahmat, Kota Soe, Kabupaten Timor Tengah Selatan, Nusa Tenggara Timur.</p>
+                <p><b>Telepon / WhatsApp:</b> 085857827175</p>
+                <a href="tel:085857827175" style="display: inline-flex; align-items: center; gap: 8px; background-color: #004d40; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 10px;"><i class="fa-solid fa-phone"></i> Hubungi Kami</a>
+            </div>
 
-                    <label>Isi Pesan:</label>
-                    <textarea rows="5" placeholder="Tuliskan laporanmu secara detail..."></textarea>
+            <div class="kartu" style="border-left: 6px solid #e1306c;">
+                <h3 style="color: #e1306c;"><i class="fa-solid fa-hashtag"></i> Media Sosial</h3>
+                <p>Ikuti kegiatan dan pembaruan informasi dari kami melalui platform media sosial berikut:</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                    <a href="https://www.instagram.com/polpp_tts/" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;"><i class="fa-brands fa-instagram" style="font-size: 18px;"></i> @polpp_tts</a>
+                    <a href="https://www.facebook.com/satpolpp.tts/" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background-color: #1877f2; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;"><i class="fa-brands fa-facebook" style="font-size: 18px;"></i> Facebook</a>
+                </div>
+            </div>
 
-                    <button type="submit">Kirim Laporan 🚀</button>
-                </form>
+            <div class="kartu" style="border-left: 6px solid #d32f2f;">
+                <h3 style="color: #d32f2f;"><i class="fa-solid fa-truck-medical"></i> Kontak Darurat Lainnya</h3>
+                <p>Hubungi instansi terkait di Kabupaten TTS jika terjadi situasi darurat yang membutuhkan penanganan khusus:</p>
+                <ul style="line-height: 2.2; list-style-type: none; padding-left: 0;">
+                    <li><i class="fa-solid fa-building-shield" style="width: 25px; color: #1565c0;"></i> <b>Polisi:</b> <a href="tel:110" style="color: #1565c0; text-decoration: none; font-weight: bold;">110</a></li>
+                    <li><i class="fa-solid fa-truck-medical" style="width: 25px; color: #2e7d32;"></i> <b>Ambulance / RSUD Soe:</b> <a href="tel:119" style="color: #2e7d32; text-decoration: none; font-weight: bold;">119</a></li>
+                    <li><i class="fa-solid fa-fire-extinguisher" style="width: 25px; color: #ff9800;"></i> <b>Pemadam Kebakaran:</b> <a href="tel:113" style="color: #ff9800; text-decoration: none; font-weight: bold;">113</a></li>
+                </ul>
             </div>
         </div>
 
@@ -365,22 +528,25 @@
     <script>
         function bukaHalaman(idHalaman, idTombol) {
             let halaman = document.getElementsByClassName("halaman");
-            for (let i = 0; i < halaman.length; i++) {
-                halaman[i].classList.remove("halaman-aktif");
-            }
+            for (let i = 0; i < halaman.length; i++) { halaman[i].classList.remove("halaman-aktif"); }
             document.getElementById(idHalaman).classList.add("halaman-aktif");
 
             let tombol = document.querySelectorAll(".menu a");
-            for (let i = 0; i < tombol.length; i++) {
-                tombol[i].classList.remove("menu-aktif");
-            }
+            for (let i = 0; i < tombol.length; i++) { tombol[i].classList.remove("menu-aktif"); }
             document.getElementById(idTombol).classList.add("menu-aktif");
-            
-            if (window.innerWidth <= 768) {
-                window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleAccordion(elemenHeder) {
+            elemenHeder.parentElement.classList.toggle("aktif");
+            let icon = elemenHeder.querySelector(".accordion-icon");
+            if(elemenHeder.parentElement.classList.contains("aktif")){
+                icon.classList.remove("fa-chevron-down");
+                icon.classList.add("fa-chevron-up");
+            } else {
+                icon.classList.remove("fa-chevron-up");
+                icon.classList.add("fa-chevron-down");
             }
         }
     </script>
-
 </body>
 </html>
