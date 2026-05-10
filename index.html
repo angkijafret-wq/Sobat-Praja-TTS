@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Praja - Sobat Praja TTS</title>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome Icons (Untuk Ikon Profesional) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -135,6 +133,21 @@
 
         h1 { color: #004d40; font-weight: 700; margin-top: 0; display: flex; align-items: center; gap: 12px; }
         h1 i { color: #ffca28; }
+
+        /* -- GAYA EFEK KETIKAN (TYPING ANIMATION) -- */
+        .kursor-ketik {
+            display: inline-block;
+            width: 3px;
+            height: 0.9em;
+            background-color: #ffca28;
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: kedip 0.8s infinite;
+        }
+        @keyframes kedip {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
         .kartu {
             background: white;
@@ -282,14 +295,13 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <div class="logo-kecil-wrapper">
-                <img src="ntt.png.png" alt="Lambang NTT" class="logo-kecil">
+                <img src="ntt.png" alt="Lambang NTT" class="logo-kecil">
                 <img src="Pamong Pet.png.png" alt="Pamong Pet" class="logo-kecil">
             </div>
             <img src="LOGOPOLPP.jpg.jpg" alt="Logo Praja" class="logo-utama">
             <h2>Praja</h2>
         </div>
         
-        <!-- MENU UTAMA -->
         <ul class="menu">
             <li><a id="btn-beranda" class="menu-aktif" onclick="bukaHalaman('beranda', 'btn-beranda')"><i class="fa-solid fa-house"></i> Gambaran Umum</a></li>
             <li><a id="btn-hukum" onclick="bukaHalaman('dasar-hukum', 'btn-hukum')"><i class="fa-solid fa-scale-balanced"></i> Dasar Hukum</a></li>
@@ -301,9 +313,12 @@
 
     <div class="content-area">
 
-        <!-- HALAMAN BERANDA -->
         <div id="beranda" class="halaman halaman-aktif">
-            <h1><i class="fa-regular fa-hand-spock"></i> Selamat Datang!</h1>
+            
+            <h1>
+                <i class="fa-regular fa-hand-spock"></i> 
+                <span id="teks-ketik"></span><span class="kursor-ketik"></span>
+            </h1>
             
             <div class="kartu" style="border-left: 6px solid #ffca28;">
                 <h3><i class="fa-solid fa-building-shield"></i> Satuan Polisi Pamong Praja</h3>
@@ -314,17 +329,16 @@
             
             <div class="kartu">
                 <h3><i class="fa-solid fa-users-viewfinder"></i> Apa itu Trantibum?</h3>
-                <p>Trantibum adalah singkatan dari <b>Ketentraman dan Ketertiban Umum</b>. Tugas kita sebagai pelajar adalah menjaga lingkungan sekolah dan Kota Soe agar selalu aman, damai, dan nyaman untuk semua orang.</p>
+                <p>Trantibum adalah singkatan dari <b>Ketentraman dan Ketertiban Umum</b>. Trantibum bukan sekadar aturan, tapi tentang saling menghargai. Dengan hidup tertib, kita sedang menunjukkan karakter pelajar yang cerdas dan peduli terhadap kenyamanan orang tua, guru, dan teman-teman kita di Bumi Cendana ini.</p>
             </div>
         </div>
 
-        <!-- HALAMAN DASAR HUKUM -->
         <div id="dasar-hukum" class="halaman">
             <h1><i class="fa-solid fa-file-contract"></i> Dasar Hukum Trantibum</h1>
             <p>Aturan dibuat untuk melindungi hak setiap warga negara. Berikut landasan hukum utamanya:</p>
             <div class="kartu" style="border-left: 6px solid #1565c0; background-color: #e3f2fd;">
                 <h3 style="color: #1565c0;"><i class="fa-solid fa-gavel"></i> Perda Kab. TTS No 1 Tahun 2017</h3>
-                <p>Mengatur tentang ketertiban pelajar melalui <b>Bab VIII Pasal 48 Ayat 2</b>:</p>
+                <p>Mengatur ketertiban pelajar melalui <b>Bab VIII Pasal 48 Ayat 2</b>:</p>
                 <blockquote style="font-style: italic; background: rgba(255,255,255,0.7); padding: 15px; border-left: 4px solid #1565c0; margin: 15px 0; border-radius: 8px;">
                     "Setiap siswa siswi wajib berada di sekolah pada jam sekolah kecuali sedang melaksanakan tugas atau kegiatan lain yang berkaitan dengan kepentingan."
                 </blockquote>
@@ -333,14 +347,12 @@
             </div>
         </div>
 
-        <!-- HALAMAN EDUKASI -->
         <div id="buku-saku" class="halaman">
             <h1><i class="fa-solid fa-book-open"></i> Edukasi</h1>
             
             <div class="kartu" style="border-top: 5px solid #004d40;">
                 <h2 style="color: #004d40; border-bottom: 2px solid #ffca28; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px;"><i class="fa-solid fa-thumbtack"></i> Aturan & Materi Dasar</h2>
                 
-                <!-- MENU 1: SOP PENERTIBAN -->
                 <div class="accordion-item" style="border-left: 5px solid #1565c0;">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
                         <h3 style="color: #1565c0;"><i class="fa-solid fa-clipboard-check"></i> SOP Penertiban</h3>
@@ -355,7 +367,7 @@
                             </li>
                             <li style="margin-bottom: 15px;">
                                 <b style="color: #1565c0; font-size: 16px;">2. Tahap Persuasif</b><br>
-                                Jika petugas menemukan pelajar yang mulai melanggar aturan—misalnya nongkrong di kafe saat jam sekolah—tahap ini akan mengedepankan dialog.<br>
+                                Jika petugas menemukan pelajar yang mulai melanggar aturan—misalnya nongkrong di kios saat jam sekolah—tahap ini akan mengedepankan dialog.<br>
                                 <span style="color: #555;"><b>Aksi Nyata:</b> Petugas memberikan teguran lisan secara humanis dan mengingatkan pelajar untuk segera kembali ke sekolah atau rumah.</span><br>
                                 <span style="color: #555;"><b>Tujuan:</b> Mengingatkan pelajar bahwa waktu mereka sangat berharga dan menghindari penumpukan massa yang bisa memicu tawuran.</span>
                             </li>
@@ -368,14 +380,13 @@
                     </div>
                 </div>
 
-                <!-- MENU 2: SIAPA SATPOL PP -->
                 <div class="accordion-item" style="border-left: 5px solid #8e24aa;">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
                         <h3 style="color: #8e24aa;"><i class="fa-regular fa-handshake"></i> Tak Kenal Maka Tak Sayang: Siapa Sebenarnya Satpol PP?</h3>
                         <i class="fa-solid fa-chevron-down accordion-icon"></i>
                     </div>
                     <div class="accordion-content">
-                        <p style="line-height: 1.6; margin-top: 15px;">Banyak yang mengira Satpol PP kerjaannya cuma marah-marah dan razia. Padahal, Sesuai dengan mandat dalam Perda No. 1 Tahun 2017, SATPOL PP  bertugas mengawasi ketertiban demi kenyamanan bersama. Kami mengajak  teman-teman untuk mematuhi aturan jam sekolah ini, bukan karena kami ingin membatasi kebebasan, tetapi karena aturan ini hadir untuk melindungi teman teman dari bahaya yang akan terjadi. Yuk, cek tabel <b>Mitos vs Fakta</b> di bawah ini!</p>
+                        <p style="line-height: 1.6; margin-top: 15px;">Banyak yang mengira Satpol PP kerjaannya cuma marah-marah dan razia. Padahal, tugas utama kami adalah memastikan kota ini aman, nyaman, dan ramah untuk semua warga, termasuk teman-teman yang berstatus pelajar. Yuk, cek tabel <b>Mitos vs Fakta</b> di bawah ini!</p>
                         <table class="tabel-praja">
                             <thead>
                                 <tr>
@@ -385,19 +396,23 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Satpol PP suka asal tangkap pelajar yang sedang jajan.</td>
+                                    <td>Satpol PP suka asal tangkap pelajar yang sedang berada di luar sekolah.</td>
                                     <td>Satpol PP hanya menegur pelajar yang asyik nongkrong di luar sekolah saat jam pelajaran berlangsung demi keamanan kalian sendiri.</td>
                                 </tr>
                                 <tr>
                                     <td>Tugas Satpol PP cuma ngasih hukuman fisik.</td>
-                                    <td>Pendekatan kami adalah edukasi dan perlindungan agar pelajar terhindar dari aktivitas kenakalan remaja, kecelakaan, dan bahaya jalanan.</td>
+                                    <td>Pendekatan kami adalah edukasi dan perlindungan agar pelajar terhindar dari pergaulan bebas, kecelakaan, dan bahaya jalanan.</td>
                                 </tr>
+                                 <tr>
+                                    <td>Urusan bolos itu urusan sekolah, Satpol PP tidak perlu ikut campur</td>
+                                    <td>keamanan dan ketertiban umum adalah salah satu tugas dari Satpol PP. kami hadir untuk membantu sekolah dan memastikan teman teman tetap aman dan berada di jalur yang benar. 
+
+                                    </td>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- MENU 3: ZONA RAWAN -->
                 <div class="accordion-item" style="border-left: 5px solid #c62828;">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
                         <h3 style="color: #c62828;"><i class="fa-solid fa-triangle-exclamation"></i> Zona Rawan: 3 Perangkap Masa Remaja</h3>
@@ -413,7 +428,6 @@
                     </div>
                 </div>
 
-                <!-- MENU 4: DAMPAK BOLOS -->
                 <div class="accordion-item" style="border-left: 5px solid #e65100;">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
                         <h3 style="color: #e65100;"><i class="fa-solid fa-circle-exclamation"></i> Dampak & Bahaya Bolos Sekolah</h3>
@@ -431,29 +445,27 @@
                     </div>
                 </div>
 
-                <!-- MENU 5: PELAJAR HITS -->
                 <div class="accordion-item" style="border-left: 5px solid #2e7d32;">
                     <div class="accordion-header" onclick="toggleAccordion(this)">
-                        <h3 style="color: #2e7d32;"><i class="fa-solid fa-star"></i> ayo jadi pelajar yang disiplin</h3>
+                        <h3 style="color: #2e7d32;"><i class="fa-solid fa-star"></i> Panduan Menjadi "Pelajar Hits" yang Disiplin</h3>
                         <i class="fa-solid fa-chevron-down accordion-icon"></i>
                     </div>
                     <div class="accordion-content">
-                        <p style="line-height: 1.6; margin-top: 15px;">Mau tetap disiplin tanpa harus berurusan dengan patroli ketertiban? Simak tips berikut:</p>
-                        <ol style="line-height: 1.8;">
-                            <li><b>Nongkrong Tahu Waktu:</b>  nongkrong dan bersosialisasi dengan sesama teman adalah hal yang setiap hari pasti dilakukan, tapi pastikan dilakukan setelah jam pulang sekolah dan tidak sampai larut malam.</li>
+                        <p style="line-height: 1.6; margin-top: 15px;">Mau tetap gaul tanpa harus berurusan dengan patroli ketertiban? Simak tips berikut:</p>
+                        <ul style="line-height: 1.8; padding-left: 20px;">
+                            <li><b>Nongkrong Tahu Waktu:</b> Boleh banget nongkrong dan bersosialisasi bareng teman, tapi pastikan dilakukan setelah jam pulang sekolah dan tidak sampai larut malam.</li>
                             <li><b>Salurkan Energi ke Hal Positif:</b> Daripada keluyuran tidak jelas, manfaatkan energi mudamu untuk ikut ekstrakurikuler, komunitas olahraga, atau membuat konten kreatif yang bermanfaat di media sosial.</li>
-                            <li><b>Berani Bilang "TIDAK":</b> Kalau diajak teman bolos atau berkeliaran saat jam sekolah, jadilah yang berani menolak. Pelajar yang keren adalah mereka yang punya pendirian dan prinsip yang kuat!</li>
-                        </ol>
+                            <li><b>Berani Bilang "TIDAK":</b> Kalau diajak teman bolos atau nongkrong di jam sekolah, jadilah yang berani menolak. Pelajar yang keren adalah mereka yang punya pendirian dan prinsip yang kuat!</li>
+                        </ul>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <!-- HALAMAN VIDEO EDUKASI -->
         <div id="video-edukasi" class="halaman">
             <h1><i class="fa-solid fa-photo-film"></i> Video Edukasi</h1>
-            <p>Agen, tonton rekaman misi di bawah ini untuk memahami dampak dari setiap tindakanmu bagi masa depan dan Kota Soe.</p>
+            <p>Teman teman, tonton rekaman misi di bawah ini untuk memahami dampak dari setiap tindakanmu bagi masa depan dan Kota Soe.</p>
             
             <div class="kartu" style="border-left: 6px solid #c62828;">
                 <h3 style="color: #c62828;"><i class="fa-solid fa-wine-bottle"></i> Misi 1: Bahaya Miras & Narkoba</h3>
@@ -484,14 +496,13 @@
             </div>
 
             <div class="kartu" style="border-left: 6px solid #2e7d32; background-color: #e8f5e9;">
-                <h3 style="color: #2e7d32;"><i class="fa-solid fa-user-graduate"></i> Misi 5: Dampak Positif Belajar</h3>
+                <h3 style="color: #2e7d32;"><i class="fa-solid fa-user-graduate"></i> Misi 5: Dampak Malas Belajar</h3>
                 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; margin-top: 15px;">
                     <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" src="https://www.youtube.com/embed/gNCVxf-ToF8" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
 
-        <!-- HALAMAN ABOUT US -->
         <div id="about-us" class="halaman">
             <h1><i class="fa-solid fa-circle-info"></i> About Us</h1>
             <p>Informasi kontak, lokasi, dan media sosial resmi Satuan Polisi Pamong Praja Kabupaten Timor Tengah Selatan.</p>
@@ -511,17 +522,6 @@
                     <a href="https://www.facebook.com/satpolpp.tts/" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background-color: #1877f2; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;"><i class="fa-brands fa-facebook" style="font-size: 18px;"></i> Facebook</a>
                 </div>
             </div>
-
-            <div class="kartu" style="border-left: 6px solid #d32f2f;">
-                <h3 style="color: #d32f2f;"><i class="fa-solid fa-truck-medical"></i> Kontak Darurat Lainnya</h3>
-                <p>Hubungi instansi terkait di Kabupaten TTS jika terjadi situasi darurat yang membutuhkan penanganan khusus:</p>
-                <ul style="line-height: 2.2; list-style-type: none; padding-left: 0;">
-                    <li><i class="fa-solid fa-building-shield" style="width: 25px; color: #1565c0;"></i> <b>Polisi:</b> <a href="tel:110" style="color: #1565c0; text-decoration: none; font-weight: bold;">110</a></li>
-                    <li><i class="fa-solid fa-truck-medical" style="width: 25px; color: #2e7d32;"></i> <b>Ambulance / RSUD Soe:</b> <a href="tel:119" style="color: #2e7d32; text-decoration: none; font-weight: bold;">119</a></li>
-                    <li><i class="fa-solid fa-fire-extinguisher" style="width: 25px; color: #ff9800;"></i> <b>Pemadam Kebakaran:</b> <a href="tel:113" style="color: #ff9800; text-decoration: none; font-weight: bold;">113</a></li>
-                </ul>
-            </div>
-        </div>
 
     </div>
 
@@ -547,6 +547,21 @@
                 icon.classList.add("fa-chevron-down");
             }
         }
+
+        /* --- SCRIPT UNTUK EFEK KETIKAN OTOMATIS --- */
+        let indexKetik = 0;
+        const teksKetik = "Selamat Datang!";
+        
+        function efekNgetik() {
+            if (indexKetik < teksKetik.length) {
+                document.getElementById("teks-ketik").innerHTML += teksKetik.charAt(indexKetik);
+                indexKetik++;
+                setTimeout(efekNgetik, 100); /* Angka 100 adalah kecepatan ketik dalam milidetik */
+            }
+        }
+        
+        // Menjalankan efek saat halaman pertama kali dibuka
+        window.onload = efekNgetik;
     </script>
 </body>
 </html>
